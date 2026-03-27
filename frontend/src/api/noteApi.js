@@ -11,7 +11,7 @@ export const listNotes = ({ archived, categoryIds, page = 0, size = 10 }) => {
 
   if (hasCategories) {
     params.categoryIds = categoryIds.join(",");
-    params.match = "ANY";
+    params.match = "ALL";
   }
 
   return api.get("/notes", { params });
