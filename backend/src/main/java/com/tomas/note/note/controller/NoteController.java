@@ -6,8 +6,11 @@ import com.tomas.note.note.dto.NoteCategoriesRequest;
 import com.tomas.note.note.service.NoteService;
 
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
@@ -47,6 +50,12 @@ public class NoteController {
             @RequestParam(required = false) Boolean archived,
             @RequestParam(required = false) String categoryIds,
             @RequestParam(required = false) String match,
+            @ParameterObject @PageableDefault(
+                    page = 0,
+                    size = 20,
+                    sort = "updatedAt",
+                    direction = Sort.Direction.DESC
+            )
             Pageable pageable) {
         Set<Long> ids = null;
         if (categoryIds != null && !categoryIds.isBlank()) {
